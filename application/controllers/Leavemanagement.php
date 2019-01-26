@@ -1,5 +1,5 @@
 <?php
-class Leavemanagement extends My_Controller{
+class Leavemanagement extends CI_Controller{
     public function __construct()
     {
 

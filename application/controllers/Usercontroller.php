@@ -1,5 +1,5 @@
 <?php
-	class Usercontroller extends My_Controller{
+	class Usercontroller extends CI_Controller{
 		public function __construct()
 		{
 
