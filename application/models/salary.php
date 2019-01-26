@@ -18,7 +18,14 @@ class Salary extends CI_Model{
         return $query->row();	
 	}
 
-//check last pay of month 
+	public function paid_salary_month($emp_id){
+		$this->db->select('month');
+		$this->db->from('salary_paid_info');           
+		$this->db->where(array('emp_id'=> $emp_id,'year'=>date('y')));
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+   //check last pay of month 
 	public function check_last_pay($emp_id)
 	{
 		$this->db->select('*');

@@ -3,7 +3,15 @@ class Usermodel extends CI_Model{
 	public function employees(){
 		$this->db->select('*');
 		$this->db->from('user');
-		$this->db->join('user_full_info', 'user_full_info.id = user.id','inner');
+		//$this->db->join('user_full_info', 'user_full_info.id = user.id','inner');
+		$query = $this->db->get();
+		return $query->result();
+	}
+	
+	public function add_salary_info_employees(){
+		$this->db->select('*');
+		$this->db->from('user');
+		$this->db->join('emp_salary_info', 'emp_salary_info.emp_id = user.id','inner');
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -12,8 +20,8 @@ class Usermodel extends CI_Model{
 	{
 		$this->db->select('*');
 		$this->db->from('user');
-		$this->db->join('user_full_info', 'user_full_info.id = user.id','inner');            
-		$this->db->where('user.id', $id1);
+		//$this->db->join('user_full_info', 'user_full_info.id = user.id','inner');            
+		$this->db->where('id', $id1);
 		$query = $this->db->get();
         return $query->result();
 	}

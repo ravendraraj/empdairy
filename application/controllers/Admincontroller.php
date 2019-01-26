@@ -17,7 +17,6 @@ class Admincontroller extends CI_Controller{
 	public function dashboard(){
 			$this->load->model('usermodel');
 			$this->load->model('Compexpenes');
-			$this->load->model('settingdata');
 			$comp_profile=$this->settingdata->company_profile();
 			$pre_day_exp= $this->Compexpenes->yesterday_expense_model();
 			$emp=$this->usermodel->employees();
@@ -26,7 +25,6 @@ class Admincontroller extends CI_Controller{
 	}
 
 	public function add_new_userform(){
-		$this->load->model('settingdata');
 		$leave=$this->settingdata->leaveData();
 		$depart=$this->settingdata->getDepart();
 		$desigation=$this->settingdata->getDesigation_all();
@@ -49,7 +47,7 @@ class Admincontroller extends CI_Controller{
 
 			public function mail_msg($data12){
 					$this->load->library('email');
-		            $this->load->library('encrypt');
+		            //$this->load->library('encrypt');
 					$config['protocol'] = 'sendmail';
 					$config['mailpath'] = '/usr/sbin/sendmail';
 					$config['wordwrap'] = TRUE;
@@ -96,14 +94,12 @@ class Admincontroller extends CI_Controller{
 		if($this->form_validation->run()==true)
 		{
 			//here insert data im db;
-			$data_user_login = array('uname' =>$this->input->post('uname'),'pass' =>$Passwo,'fname' =>$this->input->post('firstName'),'lname'=>$this->input->post('lastName'),'userType'=>'user');
-
-
-			$data = array('DOB'=>$this->input->post('DOB'),'qualification' =>$this->input->post('qualification'),'depart' =>$this->input->post('depart'),'desigation' =>$this->input->post('desigation'),'Previous' =>$this->input->post('Previous'),'Experience' =>$this->input->post('Experience'),'Corresponing' =>$this->input->post('Corresponing'),'Prmanet' =>$this->input->post('Prmanet'),'dateofjoining' =>date("d/m/Y"));
+			$data_user_login = array('uname' =>$this->input->post('uname'),'pass' =>$Passwo,'fname' =>$this->input->post('firstName'),'lname'=>$this->input->post('lastName'),'DOB'=>$this->input->post('DOB'),'qualification' =>$this->input->post('qualification'),'depart' =>$this->input->post('depart'),'desigation' =>$this->input->post('desigation'),'Previous' =>$this->input->post('Previous'),'Experience' =>$this->input->post('Experience'),'Corresponing' =>$this->input->post('Corresponing'),'Prmanet' =>$this->input->post('Prmanet'),'dateofjoining' =>date("Y-m-d"),'userType'=>'user');
+			//$data = array('DOB'=>$this->input->post('DOB'),'qualification' =>$this->input->post('qualification'),'depart' =>$this->input->post('depart'),'desigation' =>$this->input->post('desigation'),'Previous' =>$this->input->post('Previous'),'Experience' =>$this->input->post('Experience'),'Corresponing' =>$this->input->post('Corresponing'),'Prmanet' =>$this->input->post('Prmanet'),'dateofjoining' =>date("d/m/Y"));
 			//print_r($data);
 			$count_row1 = $this->db->insert('user',$data_user_login); 
-			$count_row2 = $this->db->insert('user_full_info',$data);
-			if($count_row1>0 && $count_row2>0)
+			//$count_row2 = $this->db->insert('user_full_info',$data);
+			if($count_row1>0)
         		{
         			$this->mail_msg($data_user_login);  //Here redirect mail function to send msg 
         		} 

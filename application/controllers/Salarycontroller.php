@@ -13,6 +13,7 @@ class Salarycontroller extends CI_Controller{
 			redirect('Login/index');
 		}
 		$this->load->helper('form');
+		$this->load->model('salary');
 	}
 
 	public function add_emp_salary_info_form()
@@ -58,11 +59,22 @@ class Salarycontroller extends CI_Controller{
 			}
 		}
 	}
-
+   
+	public function paid_emp_sal_month()
+	{
+		$result=$this->salary->paid_salary_month(18);
+		$people=[1,2,3,4,5,6,7,8,9,10,11,12];
+		
+		foreach($result as $r)
+		{
+			if (in_array($r['month'], $people))
+			echo $r['month'];
+		}
+	}
 	//Generate Payslip page
 	public function generate_payslip(){
 		$this->load->model('usermodel');
-		$res['chunk']=$this->usermodel->employees();
+		$res['chunk']=$this->usermodel->add_salary_info_employees();
 		$this->load->view('admin/generate_payslip',$res);
 	}
 
@@ -70,11 +82,10 @@ class Salarycontroller extends CI_Controller{
 	public function final_generate_payslip(){
 
 		//load model of salary
-		$this->load->model('salary');
+		//$this->load->model('salary');
 		$employee_id=$this->input->post('emp_id');
 		$emp_salary_info=$this->salary->employee_salay_details($employee_id);
 		$salary_func=$this->salary->salary_functionality();
-
 		//these function of salary
 			$total_salary=0;
 	 		$hra=0;
@@ -85,8 +96,7 @@ class Salarycontroller extends CI_Controller{
 	 		$emp_pf=0;
 	 	if($this->input->post('salary_month'))
 	 	{
-
-	 		$total_salary=$emp_salary_info->emp_total_pay;
+			$total_salary=$emp_salary_info->emp_total_pay;
 	 		$hra=($salary_func->emp_hra*$total_salary)/100;
 	 		$ta=($salary_func->emp_ta*$total_salary)/100;
 	 		$ma=($salary_func->emp_ma*$total_salary)/100;
@@ -105,7 +115,6 @@ class Salarycontroller extends CI_Controller{
 	 	}
 
 	 	//substract pf ammount from total salary
-	 	$emp_pf=$emp_salary_info->emp_pf;
 	 	if($emp_pf)
 	 		{
 	 			$emp_pf=($emp_salary_info->emp_pf*$total_salary)/100;
@@ -117,7 +126,6 @@ class Salarycontroller extends CI_Controller{
 	 	    $expense_ammount=0;
 	 	    $emp_bonus=0;
 	 	    $emp_over_time=0;
-            $paid_date=date('d-m-y');
             $year=date('y');
 			$month=date('m');
 			
@@ -132,7 +140,6 @@ class Salarycontroller extends CI_Controller{
 	 	    	'leave_dect_ammount'=>$leave_dect,
 	 	    	'expensess_ammount'=>$expense_ammount,
 	 	    	'paid_ammount'=>$total_salary,
-	 	    	'paid_date'=>$paid_date,
 	 	    	'year'=>$year,
 				'month'=>$month,
 				'basic_salary'=>$basic_salary,

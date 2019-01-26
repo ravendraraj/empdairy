@@ -130,9 +130,9 @@
                       <th>Name</th>
                       <th>Position</th>
                       <th>Department</th>
-                      <th>Age</th>
+                    <!--  <th>Age</th>-->
                       <th>Start date</th>
-                      <th>CTC</th>
+                    <!--  <th>CTC</th>-->
                       <th>Exp in Years</th>
                     </tr>
                   </thead>
@@ -142,9 +142,9 @@
                       <th>Name</th>
                       <th>Position</th>
                       <th>Department</th>
-                      <th>Age</th>
+                      <!--<th>Age</th>-->
                       <th>Start date</th>
-                      <th>CTC</th>
+                     <!-- <th>CTC</th>-->
                       <th>Exp in Years</th>
                     </tr>
                   </tfoot>
@@ -160,9 +160,9 @@
                         <td><?php echo $row->fname;?> <?php echo $row->lname;?></td>  
                         <td><?php echo $row->desigation;?></td>  
                         <td><?php echo $row->depart;?></td>  
-                        <td><?php echo "insert age"?></td>
+                      <!--  <td><?php //echo "insert age"?></td>-->
                         <td><?php echo $row->dateofjoining;?></td>
-                        <td><?php echo $row->CTC;?></td>
+                      <!---  <td><?php //echo $row->CTC;?></td>-->
                         <td><?php echo $row->Experience;?></td>
                     </tr>  
                   <?php
