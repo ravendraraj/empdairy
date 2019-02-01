@@ -125,6 +125,7 @@
                 <span>Permanet Address</span>
                 <?php echo form_textarea(array('id'=>'Prmanet','class'=>'form-control','required'=>'required','name'=>'Prmanet','autofocus'=>'autofocus','rows'=>'3','value'=>set_value('Prmanet')))?>
                 <?php echo form_error('Prmanet')?>
+				 <input type="checkbox" name="checksame" onclick="fillAddress(this.form)">same address<br>
               </div>
               </div>
             <br/>
@@ -140,6 +141,18 @@
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Same Address auto fill-->
+	<script>
+    function fillAddress(f)
+    {
+        if(f.checksame.checked==true)
+            f.Corresponing.value=f.Prmanet.value;
+    }
+    function submit()
+    {
+        alert("");
+    }
+    </script>
 
   </body>
 
